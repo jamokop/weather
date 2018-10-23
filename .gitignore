@@ -1,0 +1,4 @@
+build/
+weather.egg-info/
+venv/
+*.pyc
