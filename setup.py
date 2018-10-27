@@ -6,5 +6,5 @@ setup(
     description = "micro app providing weather data",
     author = "jam",
     packages = find_packages(),
-    install_requires = ["Flask==1.0.2","requests","flask-nicely","flask_sqlalchemy","PyMySQL"],
+    install_requires = ["Flask==1.0.2","requests","flask-nicely","flask_sqlalchemy","PyMySQL","tornado==5.1.1"],
 )

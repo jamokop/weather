@@ -1,43 +1,43 @@
-from flask import request
-from project import create_app
-import flask_nicely
-from werkzeug.exceptions import ServiceUnavailable
 import requests
 import configparser
-from pprint import pprint
+import sys
+import os
 
-app = create_app()
 
-@app.route("/", methods=['GET'])
-@flask_nicely.nice_json
 def spider():
+    cfg_file = os.path.dirname(os.path.abspath(__file__))+'/../cfg.ini'
     config = configparser.ConfigParser()
-    config.read('cfg.ini')
-    city = request.args.get("city")
-    if not city:
-        raise flask_nicely.errors.Forbidden('city is missing')
-
+    config.read(cfg_file)
+    if len(sys.argv) < 2:
+        sys.exit('city is missing')
+    city = sys.argv[1]
     try:
         url = config['Openweather']['ApiUrl'] +'?q='+city+'&appid='+ config['Openweather']['AppId']
         weather = requests.get(url)
     except requests.exceptions.ConnectionError:
-        raise  flask_nicely.errors.GatewayTimeout("Openweather service is unavailable.")
+        sys.exit("Openweather service is unavailable.")
 
     response = weather.json()
     if weather.status_code != 200:
-        return response
-    payload = {
-        'city':city,
-        'temp':response['main']['temp'],
-        'humidity':response['main']['humidity']
-    }
-    result = requests.post('http://127.0.0.1:5001/weather',  json = payload )
+        sys.exit(response)
+
+    try:
+        payload = {
+            'city':city,
+            'temp':response['main']['temp'],
+            'humidity':response['main']['humidity']
+        }
+        result = requests.post('http://127.0.0.1:5001/weather',  json = payload )
+    except requests.exceptions.ConnectionError:
+        sys.exit("database service is unavailable.")
+
     if result.status_code != 200:
-        raise  flask_nicely.errors.GatewayTimeout("database service is unavailable.")
-    return result.json()['data']
+        raise  sys.exit("weather data inserts failed")
+
+    print(result.json()['data'])
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    spider()
 
 
 

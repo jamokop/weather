@@ -11,16 +11,14 @@ venv:
 	$(VIRTUALENV) -p /usr/bin/python3 venv
 
 install: clean venv
-	. venv/bin/activate; python setup.py install
-	. venv/bin/activate; python setup.py develop
+	. venv/bin/activate; python3 setup.py install
+	. venv/bin/activate; python3 setup.py develop
 
 launch: venv shutdown
-	. venv/bin/activate; python  project/services/spider.py &
-	. venv/bin/activate; python  project/services/weather_db.py &
-	#. venv/bin/activate; python  project/services/weather_api.py &
+	. venv/bin/activate; python3  project/services/weather_db.py &
+	. venv/bin/activate; sudo python3  project/services/weather.py &
 
 shutdown:
-	ps -ef | grep "project/services/spider.py" | grep -v grep | awk '{print $$2}' | xargs -r sudo kill -9
 	ps -ef | grep "project/services/weather_db.py" | grep -v grep | awk '{print $$2}' |  xargs -r sudo kill -9
-	#ps -ef | grep "project/services/weather_api.py" | grep -v grep | awk '{print $$2}' | xargs -r sudo kill -9
+	ps -ef | grep "project/services/weather.py" | grep -v grep | awk '{print $$2}' | xargs -r sudo kill -9
 
