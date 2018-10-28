@@ -1,5 +1,6 @@
 from project import db
 from time import time
+import json
 
 class Weather(db.Model):
     __tablename__ = 'record'
@@ -17,3 +18,14 @@ class Weather(db.Model):
 
     def __str__(self):
         return '<City %s> temp:%s' % (self.city, self.temp)
+
+    def toJSON(self):
+        return {
+            'id'      : self.id,
+            'city'    : self.city,
+            'temp'    : float(self.temp),
+            'humidity': self.humidity,
+            'addtime' : self.addtime
+        }
+
+
