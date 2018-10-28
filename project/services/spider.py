@@ -1,17 +1,14 @@
 import requests
-import configparser
 import sys
-import os
+from project.helper.config import Config
 
 
 def spider():
-    cfg_file = os.path.dirname(os.path.abspath(__file__))+'/../cfg.ini'
-    config = configparser.ConfigParser()
-    config.read(cfg_file)
     if len(sys.argv) < 2:
         sys.exit('city is missing')
     city = sys.argv[1]
     try:
+        config = Config()
         url = config['Openweather']['ApiUrl'] +'?q='+city+'&appid='+ config['Openweather']['AppId']
         weather = requests.get(url)
     except requests.exceptions.ConnectionError:
