@@ -53,8 +53,10 @@ class MainHandler(tornado.web.RequestHandler):
             try:
                 start = start[0]
                 end = end[0]
-                datetime.strptime(start, dateformat)
-                datetime.strptime(end, dateformat)
+                date1 = datetime.strptime(start, dateformat)
+                date2 = datetime.strptime(end, dateformat)
+                if date1 > date2:
+                    start,end = end,start
             except ValueError:
                 return self.finish({'error':'Incorrect data format, should be Y-m-d H:i:s'})
 
