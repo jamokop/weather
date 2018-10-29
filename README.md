@@ -3,10 +3,12 @@
 Overview
 ========
 a micro app providing weather data
+Q&A: https://github.com/jamokop/weather/blob/master/Q_A.md
 
 Environment
 ===========
 python3,tornado,flask,mysql
+deploy in google compute engine
 
 Install
 =======
