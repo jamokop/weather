@@ -80,7 +80,7 @@ And store the latest weather data.
     }
 
 ##  Weather data query api service (port 80)
-this microservice provide a query api. u can retrieve weather data by city name , filter by a given date range.
+this microservice provide a query api. u can retrieve weather data by city name , filter by a given date range.\
 demo: http://35.237.118.107/api/v1/weather?city=singapore&start=2018-10-28%2023:00:00&end=2018-10-28%2023:40:00
 
     python3 project/services/weather.py
@@ -101,6 +101,6 @@ demo: http://35.237.118.107/api/v1/weather?city=singapore&start=2018-10-28%2023:
 
 Further
 =======
--add cache in the api layer to improve performance,cause weather data won't change a lot
--return different data type(json,xml etc) based on user requirement
--may be add nginx in front of services
+- add cache in the api layer to improve performance,cause weather data won't change a lot
+- return different data type(json,xml etc) based on user requirement
+- may be add nginx in front of services
