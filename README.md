@@ -2,11 +2,13 @@
 
 Overview
 ========
-a micro app providing weather data
+a micro app providing weather data\
+Q&A: https://github.com/jamokop/weather/blob/master/Q_A.md
 
 Environment
 ===========
 python3,tornado,flask,mysql
+deploy in google compute engine
 
 Install
 =======
@@ -81,7 +83,9 @@ And store the latest weather data.
 
 ##  Weather data query api service (port 80)
 this microservice provide a query api. u can retrieve weather data by city name , filter by a given date range.\
-demo: http://35.237.118.107/api/v1/weather?city=singapore&start=2018-10-28%2023:00:00&end=2018-10-28%2023:40:00
+demo:\
+http://35.237.118.107/api/v1/weather?city=singapore&start=2018-10-28%2023:00:00&end=2018-10-28%2023:40:00 \
+http://35.237.118.107/api/v1/weather?city=kowloon&start=2018-10-28%2023:00:00&end=2018-10-28%2023:40:00
 
     python3 project/services/weather.py
 
