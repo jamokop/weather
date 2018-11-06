@@ -1,16 +1,11 @@
-from project import db,create_app
+from project import db,app
 from project.models.weather import Weather
 import flask_nicely
-import configparser
 from flask import request,jsonify
-from pprint import pprint
 import datetime
 import pytz
 
-
-app = create_app()
 db.create_all(app=app)
-
 @app.route("/weather", methods=['GET'])
 @flask_nicely.nice_json
 def get():

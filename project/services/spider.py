@@ -1,14 +1,10 @@
 import requests
 import sys
-from project.helper.config import Config
+from project import config
 
 
-def spider():
-    if len(sys.argv) < 2:
-        sys.exit('city is missing')
-    city = sys.argv[1]
+def spider(city):
     try:
-        config = Config()
         url = config['Openweather']['ApiUrl'] +'?q='+city+'&appid='+ config['Openweather']['AppId']
         weather = requests.get(url)
     except requests.exceptions.ConnectionError:
@@ -31,10 +27,13 @@ def spider():
     if result.status_code != 200:
         raise  sys.exit("weather data inserts failed")
 
-    print(result.json()['data'])
+    return result.json()['data']
 
 if __name__ == "__main__":
-    spider()
+    if len(sys.argv) < 2:
+        sys.exit('city is missing')
+    city = sys.argv[1]
+    spider(city)
 
 
 

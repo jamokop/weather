@@ -1,4 +1,4 @@
-from project import db
+from project import app,db
 from time import time
 import json
 
