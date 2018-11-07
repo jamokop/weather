@@ -16,9 +16,14 @@ class MainHandler(tornado.web.RequestHandler):
         url = url+'?'+urllib.parse.urlencode(query_string)
         print(url)
         http_client  = AsyncHTTPClient()
-        response = await http_client.fetch(url)
-        json = tornado.escape.json_decode(response.body)
-        self.write(json)
+        try:
+            response = await http_client.fetch(url)
+        except Exception as e:
+            self.write("Error: %s" % e)
+        else:
+            json = tornado.escape.json_decode(response.body)
+            self.write(json)
+
 
     def validate(self):
         dateformat = "%Y-%m-%d %H:%M:%S"
